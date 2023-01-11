@@ -11,6 +11,8 @@ const (
 	CommonForbidden         = "common_forbidden"
 	CommonInvalidID         = "common_invalid_id"
 	CommonTransactionFailed = "common_transaction_failed"
+	CommonPageInvalid       = "common_page_invalid"
+	CommonLimitInvalid      = "common_limit_invalid"
 )
 
 const (
@@ -23,6 +25,8 @@ const (
 	commonForbiddenCode
 	commonInvalidIDCode
 	commonTransactionFailedCode
+	commonPageInvalid
+	commonLimitInvalid
 )
 
 // 1-99
@@ -71,5 +75,15 @@ var common = []Code{
 		Key:     CommonTransactionFailed,
 		Code:    commonTransactionFailedCode,
 		Message: "đã có lỗi xảy ra trong quá trình xử lý, vui lòng thử lại sau giây lát",
+	},
+	{
+		Key:     CommonPageInvalid,
+		Code:    commonPageInvalid,
+		Message: "page không đúng định dạng",
+	},
+	{
+		Key:     CommonLimitInvalid,
+		Code:    commonLimitInvalid,
+		Message: "limit không đúng định dạng",
 	},
 }
