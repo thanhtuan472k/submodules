@@ -4,8 +4,8 @@ import (
 	"time"
 )
 
-// CategoryRaw ...
-type CategoryRaw struct {
+// Category ...
+type Category struct {
 	ID           AppID     `bson:"_id"`
 	Name         string    `bson:"name"`
 	SearchString string    `bson:"searchString"`
