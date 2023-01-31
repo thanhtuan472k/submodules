@@ -11,7 +11,6 @@ type Staff struct {
 	Gender       string    `bson:"gender"`
 	Phone        string    `bson:"phone"`
 	Password     string    `bson:"password"`
-	Code         string    `bson:"code"`
 	Status       string    `bson:"status"`
 	CreatedAt    time.Time `bson:"createdAt"`
 	UpdatedAt    time.Time `bson:"updatedAt"`
