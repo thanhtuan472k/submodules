@@ -35,3 +35,5 @@ func (s Staff) GenerateAccessToken() string {
 
 	return tokenString
 }
+
+// GenerateRefreshToken ...
