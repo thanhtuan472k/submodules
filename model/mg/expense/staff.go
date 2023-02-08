@@ -1,7 +1,8 @@
 package expense
 
 import (
-	"github.com/golang-jwt/jwt"
+	"expense-tracker-server/internal/config"
+	"github.com/golang-jwt/jwt/v4"
 	"time"
 )
 
@@ -19,21 +20,56 @@ type Staff struct {
 	UpdatedAt    time.Time `bson:"updatedAt"`
 }
 
+// StaffLoginClaim ...
+type StaffLoginClaim struct {
+	ID    string
+	Name  string
+	Phone string
+	jwt.RegisteredClaims
+}
+
 // GenerateAccessToken ...
 func (s Staff) GenerateAccessToken() string {
 	// Init claims
 	claims := jwt.MapClaims{
-
-		"_id":  s.ID,
-		"name": s.Name,
-		"exp":  time.Now().Local().Add(time.Second * 15552000).Unix(), // 6 months
+		"_id":   s.ID.Hex(),
+		"name":  s.Name,
+		"phone": s.Phone,
+		"exp":   time.Now().Local().Add(GetTimeExpiredToken()).Unix(), // 6 months
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	tokenString, _ := token.SignedString([]byte("AuthSecret"))
+	// Create the actual JWT token
+	tokenString, _ := token.SignedString([]byte(config.GetENV().Admin.Auth.SecretKey))
 
 	return tokenString
 }
 
 // GenerateRefreshToken ...
+//func (s Staff) GenerateRefreshToken() string {
+//	// Init claims
+//	claims := jwt.MapClaims{
+//		"_id":  s.ID,
+//		"name": s.Name,
+//		"exp":  time.Now().Local().Add(GetTimeExpiredToken()).Unix(), // 6 months
+//	}
+//
+//	token := jwt.New(jwt.SigningMethodES256)
+//
+//	tokenClaim := token.Claims(claims)
+//
+//	//tokenString, _ := tokenClaim.SignedString([]byte(config.GetENV().Admin.Auth.SecretKey))
+//
+//	return tokenString
+//}
+
+// GetTimeExpiredToken ...
+func GetTimeExpiredToken() time.Duration {
+	var (
+		seconds time.Duration
+	)
+
+	seconds = time.Duration(config.GetENV().Admin.Auth.TimeExpiredToken) * time.Second
+	return seconds
+}
