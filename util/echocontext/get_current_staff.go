@@ -2,7 +2,6 @@ package echocontext
 
 import (
 	"expense-tracker-server/external/mongodb"
-	"fmt"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -16,8 +15,7 @@ type Staff struct {
 
 // GetCurrentStaffID ...
 func GetCurrentStaffID(c echo.Context) (id primitive.ObjectID) {
-	token := c.Get("staff")
-	fmt.Println("tokenStaff", token)
+	token := c.Get("user")
 	if token == nil {
 		return
 	}
@@ -63,7 +61,6 @@ func GetCurrenStaffByToken(token interface{}) *Staff {
 			staff.Name = name.(string)
 		}
 	}
-	fmt.Println("StaffGetCurrent", staff)
 
 	return staff
 }
