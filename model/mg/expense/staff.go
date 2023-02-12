@@ -2,7 +2,7 @@ package expense
 
 import (
 	"expense-tracker-server/internal/config"
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt"
 	"time"
 )
 
@@ -18,14 +18,6 @@ type Staff struct {
 	Status       string    `bson:"status"`
 	CreatedAt    time.Time `bson:"createdAt"`
 	UpdatedAt    time.Time `bson:"updatedAt"`
-}
-
-// StaffLoginClaim ...
-type StaffLoginClaim struct {
-	ID    string
-	Name  string
-	Phone string
-	jwt.RegisteredClaims
 }
 
 // GenerateAccessToken ...
