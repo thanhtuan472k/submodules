@@ -1,22 +1,17 @@
 package expense
 
 import (
-	"expense-tracker-server/external/constant"
 	"time"
 )
 
-// Category ...
-type Category struct {
+// SubCategory ...
+type SubCategory struct {
 	ID           AppID     `bson:"_id"`
 	Name         string    `bson:"name"`
 	SearchString string    `bson:"searchString"`
 	Status       string    `bson:"status"`
-	Type         string    `bson:"type"`
+	Type         string    `bson:"type"` // match from category
+	Category     AppID     `bson:"category"`
 	CreatedAt    time.Time `bson:"createdAt"`
 	UpdatedAt    time.Time `bson:"updatedAt"`
-}
-
-// IsActiveCategory ...
-func (m Category) IsActiveCategory() bool {
-	return m.Status == constant.StatusActive
 }
