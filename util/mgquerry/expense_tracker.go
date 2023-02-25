@@ -12,7 +12,7 @@ type ExpenseTracker struct {
 	ID        primitive.ObjectID
 	Keyword   string
 	Status    string
-	Type      string
+	Type      string // expense, income
 	CreatedAt time.Time
 }
 
@@ -34,5 +34,12 @@ func (e ExpenseTracker) AssignStatus(cond *bson.D) {
 func (e ExpenseTracker) AssignCategoryType(cond *bson.D) {
 	if e.Type != "" && e.Type != "all" {
 		*cond = append(*cond, bson.E{"type", e.Type})
+	}
+}
+
+// AssignCategoryID ...
+func (e ExpenseTracker) AssignCategoryID(cond *bson.D) {
+	if !e.ID.IsZero() {
+		*cond = append(*cond, bson.E{"category", e.ID})
 	}
 }
