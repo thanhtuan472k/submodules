@@ -81,3 +81,9 @@ func ConvertToJSONString(data interface{}) string {
 	dataByte, _ := json.Marshal(data)
 	return string(dataByte)
 }
+
+// NewIDFromString ...
+func NewIDFromString(s string) (value primitive.ObjectID, isValid bool) {
+	id, err := primitive.ObjectIDFromHex(s)
+	return id, err == nil
+}
