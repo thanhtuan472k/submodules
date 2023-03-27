@@ -13,6 +13,8 @@ type ExpenseTracker struct {
 	Keyword   string
 	Status    string
 	Type      string // expense, income
+	FromAt    time.Time
+	ToAt      time.Time
 	CreatedAt time.Time
 }
 
