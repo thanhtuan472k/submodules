@@ -20,3 +20,8 @@ type Category struct {
 func (m Category) IsActiveCategory() bool {
 	return m.Status == constant.StatusActive
 }
+
+// IsCategoryAvailableByTypeIncome ...
+func (m Category) IsCategoryAvailableByTypeIncome() bool {
+	return !m.ID.IsZero() && m.Status == "active" && m.Type == "income"
+}

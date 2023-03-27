@@ -15,3 +15,8 @@ type SubCategory struct {
 	CreatedAt    time.Time `bson:"createdAt"`
 	UpdatedAt    time.Time `bson:"updatedAt"`
 }
+
+// IsSubCategoryAvailableByTypeIncome ...
+func (m SubCategory) IsSubCategoryAvailableByTypeIncome() bool {
+	return !m.ID.IsZero() && m.Status == "active" && m.Type == "income"
+}

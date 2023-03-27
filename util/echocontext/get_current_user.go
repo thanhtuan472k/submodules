@@ -14,26 +14,13 @@ type User struct {
 }
 
 // GetCurrentUserID ...
-func GetCurrentUserID(c echo.Context) (id primitive.ObjectID) {
-	token := c.Get("user")
-	if token == nil {
-		return
+func GetCurrentUserID(c echo.Context) primitive.ObjectID {
+	idInterface := c.Get("current_user_id") // TODO: refactor bỏ vào constant
+	if idInterface == nil {
+		return primitive.NilObjectID
 	}
-
-	data, ok := token.(*jwt.Token)
-	if !ok {
-		return
-	}
-
-	m, ok := data.Claims.(jwt.MapClaims)
-	if ok && data.Valid {
-		s, ok := m["_id"].(string)
-		if ok && s != "" {
-			id = mongodb.ConvertStringToObjectID(s)
-		}
-	}
-
-	return id
+	idUserObject, _ := mongodb.NewIDFromString(idInterface.(string))
+	return idUserObject
 }
 
 // GetCurrenUserByToken ...
