@@ -45,3 +45,13 @@ func (e ExpenseTracker) AssignCategoryID(cond *bson.D) {
 		*cond = append(*cond, bson.E{"category", e.ID})
 	}
 }
+
+// AssignFromToAt ...
+func (e ExpenseTracker) AssignFromToAt(cond *bson.D) {
+	if !e.FromAt.IsZero() && !e.ToAt.IsZero() {
+		*cond = append(*cond, bson.E{"createdAt", bson.M{
+			"$gte": e.FromAt,
+			"$lte": e.ToAt,
+		}})
+	}
+}
