@@ -13,6 +13,8 @@ type ExpenseTracker struct {
 	Keyword   string
 	Status    string
 	Type      string // expense, income
+	FromAt    time.Time
+	ToAt      time.Time
 	CreatedAt time.Time
 }
 
@@ -41,5 +43,15 @@ func (e ExpenseTracker) AssignCategoryType(cond *bson.D) {
 func (e ExpenseTracker) AssignCategoryID(cond *bson.D) {
 	if !e.ID.IsZero() {
 		*cond = append(*cond, bson.E{"category", e.ID})
+	}
+}
+
+// AssignFromToAt ...
+func (e ExpenseTracker) AssignFromToAt(cond *bson.D) {
+	if !e.FromAt.IsZero() && !e.ToAt.IsZero() {
+		*cond = append(*cond, bson.E{"createdAt", bson.M{
+			"$gte": e.FromAt,
+			"$lte": e.ToAt,
+		}})
 	}
 }
