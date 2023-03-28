@@ -14,6 +14,7 @@ type AppQuery struct {
 	FromAt         time.Time
 	ToAt           time.Time
 	Status         string
+	SortString     string
 	ExpenseTracker ExpenseTracker
 }
 

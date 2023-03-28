@@ -8,7 +8,7 @@ import (
 
 // PageToken ...
 type PageToken struct {
-	Page      int64
+	Page      int
 	Timestamp time.Time
 }
 
@@ -19,7 +19,7 @@ func getDefaultPageToken() (response PageToken) {
 }
 
 // PageTokenEncode encode next page token for api response
-func PageTokenEncode(page int64, timestamp time.Time) string {
+func PageTokenEncode(page int, timestamp time.Time) string {
 	tokenData := PageToken{
 		Page:      page,
 		Timestamp: timestamp,
@@ -53,7 +53,7 @@ func PageTokenDecode(encodedString string) PageToken {
 }
 
 // PageTokenUsingPage generate next page token using "page"
-func PageTokenUsingPage(page int64) string {
+func PageTokenUsingPage(page int) string {
 	return PageTokenEncode(page, time.Now())
 }
 
