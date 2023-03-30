@@ -25,3 +25,8 @@ func (m Category) IsActiveCategory() bool {
 func (m Category) IsCategoryAvailableByTypeIncome() bool {
 	return !m.ID.IsZero() && m.Status == "active" && m.Type == "income"
 }
+
+// IsCategoryAvailableByTypeExpense ...
+func (m Category) IsCategoryAvailableByTypeExpense() bool {
+	return !m.ID.IsZero() && m.Status == "active" && m.Type == "expense"
+}
